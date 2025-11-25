@@ -74,4 +74,4 @@ def test_news_page_have_subject(browser_setup):
     with allure.step("Open menu-item News"):
         ixbt_page.click_on_page(ixbt_css.news)
     with allure.step("Page should have subject"):
-        ixbt_page.should_have_text(ixbt_css.news_subject, "Свежие новости")
+        ixbt_page.should_have_text(ixbt_css.news_subject, "Главные новости")
