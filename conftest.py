@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 BASE_URL_IXBT = "https://www.ixbt.com"
 BASE_URL_DEMOSHOP = "https://demowebshop.tricentis.com"
 BASE_AUTH_COOKIE_NAME = "NOPCOMMERCE.AUTH"
+BASE_URL_REQRES = "https://reqres.in"
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -74,4 +75,4 @@ def auth_cookies():
 
     yield auth_data
 
-    attach.add_api_response_attaching(result.request, result, auth_data)
+    attach.response_allure_attaching(result)

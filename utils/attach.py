@@ -1,14 +1,12 @@
 import json
 import logging
+import os
 import allure
 from allure_commons.types import AttachmentType
 from requests import Response
-
 import base64
 from typing import Any
 import requests
-
-from pages.authorization import AuthorizationData
 
 
 # Скриншоты
@@ -38,34 +36,8 @@ def add_video(browser):
     allure.attach(html, 'video_' + browser.driver.session_id, AttachmentType.HTML, '.html')
 
 
-"""# логирование ответов методов
-def add_api_response_attaching(response: Response):
-    
-    allure.attach(
-        body=response.request.url,
-        name="Request url",
-        attachment_type=AttachmentType.TEXT,
-    )
-
-    if response.request.body:  # логирование тела запроса если оно есть
-        allure.attach(
-            body=json.dumps(response.request.body, indent=4, ensure_ascii=True),
-            name="Request body",
-            attachment_type=AttachmentType.JSON,
-            extension="json",
-        )
-    else:
-
-        allure.attach(
-            body=json.dumps(response.json(), indent=4, ensure_ascii=True),
-            name="Response",
-            attachment_type=AttachmentType.JSON,
-            extension="json",
-        )"""
-
-
 # Логирование в консоль запроса
-def response_logging(response: Response):
+def response_console_loggin(response: Response):
     logging.info("Request: " + response.request.url)
     if response.request.body:
         logging.info("INFO Request body: " + response.request.body)  # логирование тела запроса если оно есть
@@ -74,35 +46,29 @@ def response_logging(response: Response):
     logging.info("Response: " + response.text)
 
 
-def add_api_response_attaching(
-        request: requests.PreparedRequest,
-        response: requests.Response,
-        auth_data: AuthorizationData,
-        description: str = "HTTP запрос-ответ"
-
+def response_allure_attaching(
+        response: requests.Response
 ) -> None:
     """
     Логирует содержимое запроса и ответа в Allure с проверкой типов содержимого
     и форматированием в читаемом виде.
 
     Args:
-        request: Подготовленный объект запроса requests.PreparedRequest
         response: Объект ответа requests.Response
-        auth_data: Данные авторизации для скрытия в логах
-        description: Описание для шага в Allure
     """
 
+    description = f"{response.request.method}: {response.request.url}"
     with allure.step(description):
         # Логирование запроса
         with allure.step("Запрос"):
-            _log_request_allure(request, auth_data)
+            _log_request_allure(response.request)
 
         # Логирование ответа
         with allure.step("Ответ"):
-            _log_response_allure(response, auth_data)
+            _log_response_allure(response)
 
 
-def _log_request_allure(request: requests.PreparedRequest, auth_data: AuthorizationData) -> None:
+def _log_request_allure(request: requests.PreparedRequest) -> None:
     """Логирует информацию о запросе"""
 
     # Основная информация о запросе
@@ -122,14 +88,13 @@ def _log_request_allure(request: requests.PreparedRequest, auth_data: Authorizat
     if request.body:
 
         _log_body_allure(
-            auth_data,
             request.body,
             request.headers.get('Content-Type', ''),
             "Тело запроса"
         )
 
 
-def _log_response_allure(response: requests.Response, auth_data: AuthorizationData) -> None:
+def _log_response_allure(response: requests.Response) -> None:
     """Логирует информацию о ответе"""
 
     # Основная информация о ответе
@@ -149,7 +114,6 @@ def _log_response_allure(response: requests.Response, auth_data: AuthorizationDa
     # Логирование тела ответа
     if response.content:
         _log_body_allure(
-            auth_data,
             response.content,
             response.headers.get('Content-Type', ''),
             "Тело ответа"
@@ -157,7 +121,6 @@ def _log_response_allure(response: requests.Response, auth_data: AuthorizationDa
 
 
 def _log_body_allure(
-        auth_data: AuthorizationData,
         body: Any,
         content_type: str,
         attachment_name: str
@@ -258,11 +221,13 @@ def _log_body_allure(
             # Парсим form-data для красивого отображения
             try:
                 from urllib import parse
+                hidden_login = os.getenv("DEMOWEBSHOP_LOGIN")
+                hidden_password = os.getenv("DEMOWEBSHOP_PASS")
                 parsed_data = parse.parse_qs(body_str)
                 formatted_data = "\n".join([f"{k}: {v}" for k, v in parsed_data.items()])
-                if auth_data.login in formatted_data and auth_data.password in formatted_data:
-                    formatted_data = formatted_data.replace(auth_data.login, '***')
-                    formatted_data = formatted_data.replace(auth_data.password, '***')
+                if hidden_login in formatted_data and hidden_password in formatted_data:
+                    formatted_data = formatted_data.replace(hidden_login, '***')
+                    formatted_data = formatted_data.replace(hidden_password, '***')
                 allure.attach(
                     formatted_data,
                     name=f"{attachment_name} (Form Data)",

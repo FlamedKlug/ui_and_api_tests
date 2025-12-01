@@ -36,8 +36,8 @@ def test_basket_add_one_position(auth_cookies, browser_setup):
             BASE_URL_DEMOSHOP + "/addproducttocart/catalog/31/1/1"
         )
         assert response.status_code == 200
-        attach.add_api_response_attaching(response.request, response, auth_cookies)
-        attach.response_logging(response)
+        attach.response_allure_attaching(response)
+        attach.response_console_loggin(response)
     with step("Счетчик корзины = 1 после добавления товара"):
         browser.open(BASE_URL_DEMOSHOP + '/cart')
         # Прокидываем куки
@@ -75,7 +75,7 @@ def test_basket_erase(auth_cookies, browser_setup):
             }
         )
         assert response.status_code == 200
-        attach.add_api_response_attaching(response.request, response, auth_cookies)
+        attach.response_allure_attaching(response)
     with step("Счетчик корзины = 0 после очистки корзины"):
         browser.open(BASE_URL_DEMOSHOP + "/cart")
         browser.driver.add_cookie({"name": BASE_AUTH_COOKIE_NAME, "value": auth_cookies.cookie})
