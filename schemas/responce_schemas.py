@@ -1,4 +1,4 @@
-response_post_users_ok = {
+post_users_ok = {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "additionalProperties": False,
   "type": "object",
@@ -24,7 +24,7 @@ response_post_users_ok = {
   ]
 }
 
-response_put_users_ok = {
+put_users_ok = {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "additionalProperties": False,
   "type": "object",
@@ -46,7 +46,7 @@ response_put_users_ok = {
   ]
 }
 
-response_put_users_error_api_key = {
+put_users_error_api_key = {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "additionalProperties": False,
@@ -60,7 +60,7 @@ response_put_users_error_api_key = {
   ]
 }
 
-response_patch_users_ok = {
+patch_users_ok = {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "additionalProperties": False,
@@ -80,4 +80,263 @@ response_patch_users_ok = {
     "job",
     "updatedAt"
   ]
+}
+
+get_users_ok = {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "page": {
+            "type": "integer"
+        },
+        "per_page": {
+            "type": "integer"
+        },
+        "total": {
+            "type": "integer"
+        },
+        "total_pages": {
+            "type": "integer"
+        },
+        "data": {
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "first_name": {
+                            "type": "string"
+                        },
+                        "last_name": {
+                            "type": "string"
+                        },
+                        "avatar": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "email",
+                        "first_name",
+                        "last_name",
+                        "avatar"
+                    ]
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "first_name": {
+                            "type": "string"
+                        },
+                        "last_name": {
+                            "type": "string"
+                        },
+                        "avatar": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "email",
+                        "first_name",
+                        "last_name",
+                        "avatar"
+                    ]
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "first_name": {
+                            "type": "string"
+                        },
+                        "last_name": {
+                            "type": "string"
+                        },
+                        "avatar": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "email",
+                        "first_name",
+                        "last_name",
+                        "avatar"
+                    ]
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "first_name": {
+                            "type": "string"
+                        },
+                        "last_name": {
+                            "type": "string"
+                        },
+                        "avatar": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "email",
+                        "first_name",
+                        "last_name",
+                        "avatar"
+                    ]
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "first_name": {
+                            "type": "string"
+                        },
+                        "last_name": {
+                            "type": "string"
+                        },
+                        "avatar": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "email",
+                        "first_name",
+                        "last_name",
+                        "avatar"
+                    ]
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "first_name": {
+                            "type": "string"
+                        },
+                        "last_name": {
+                            "type": "string"
+                        },
+                        "avatar": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "email",
+                        "first_name",
+                        "last_name",
+                        "avatar"
+                    ]
+                }
+            ]
+        },
+        "support": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "url",
+                "text"
+            ]
+        },
+        "_meta": {
+            "type": "object",
+            "properties": {
+                "powered_by": {
+                    "type": "string"
+                },
+                "upgrade_url": {
+                    "type": "string"
+                },
+                "docs_url": {
+                    "type": "string"
+                },
+                "template_gallery": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "features": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "upgrade_cta": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "powered_by",
+                "upgrade_url",
+                "docs_url",
+                "template_gallery",
+                "message",
+                "features",
+                "upgrade_cta"
+            ]
+        }
+    },
+    "required": [
+        "page",
+        "per_page",
+        "total",
+        "total_pages",
+        "data",
+        "support",
+        "_meta"
+    ]
 }

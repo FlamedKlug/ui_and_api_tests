@@ -37,7 +37,6 @@ def test_basket_add_one_position(auth_cookies, browser_setup):
         )
         assert response.status_code == 200
         attach.response_allure_attaching(response)
-        attach.response_console_loggin(response)
     with step("Счетчик корзины = 1 после добавления товара"):
         browser.open(BASE_URL_DEMOSHOP + '/cart')
         # Прокидываем куки

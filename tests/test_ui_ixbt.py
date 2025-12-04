@@ -39,7 +39,7 @@ def test_cookies_agreement_close(browser_setup):
 @allure.tag("UI")
 @allure.label("owner", "Klug")
 @allure.feature("IXBT - Проверяем иконку ютуба")
-@allure.story('Иконка ютуба не видна')
+@allure.story('Иконка ютуба видна')
 @allure.severity(Severity.TRIVIAL)
 @pytest.mark.parametrize("browser_setup", ["ixbt"], indirect=True)
 def test_youtube_icon_is_visible(browser_setup):
@@ -102,4 +102,4 @@ def test_news_page_have_subject(browser_setup):
     with allure.step("Клик на меню Новости"):
         ixbt_page.click_on_page(ixbt_css.news)
     with allure.step("Отображается заголовок Главные новости"):
-        ixbt_page.should_have_text(ixbt_css.news_subject, "новости")
+        ixbt_page.should_have_text(ixbt_css.news_subject, "Главные новости")
